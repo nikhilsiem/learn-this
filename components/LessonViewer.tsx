@@ -71,7 +71,16 @@ export function LessonViewer({ courseId, moduleIndex, onComplete }: Props) {
   }
 
   return (
-    <article className="prose prose-neutral dark:prose-invert max-w-none">
+    <article className="prose prose-sm prose-invert max-w-none
+      prose-headings:font-heading prose-headings:tracking-tight
+      prose-headings:text-foreground
+      prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+      prose-strong:text-foreground
+      prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
+      prose-pre:bg-[#111] prose-pre:border prose-pre:border-border
+      prose-hr:border-border
+      prose-blockquote:border-primary/30 prose-blockquote:text-muted-foreground
+    ">
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
         {markdown}
       </ReactMarkdown>

@@ -31,7 +31,7 @@ export default function ModulePage() {
   const nextModuleIndex = moduleIndex + 1
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
+    <div className="max-w-3xl mx-auto px-4 py-8 space-y-8">
       <LessonViewer
         key={moduleIndex}
         courseId={courseId}
@@ -40,31 +40,31 @@ export default function ModulePage() {
       />
 
       {lessonDone && (
-        <div className="flex flex-wrap gap-3 border-t pt-6">
-          <Button onClick={markAsDone} disabled={markingDone}>
-            {markingDone ? 'Saving...' : 'Mark as done'}
-          </Button>
-          <a
-            href={`/course/${courseId}/${moduleIndex}/quiz`}
-            className="inline-flex items-center justify-center rounded-lg border border-border bg-background h-8 px-2.5 text-sm font-medium hover:bg-muted"
-          >
-            Take quiz →
-          </a>
-          <Button variant="ghost" onClick={() => setChatOpen(true)}>
-            Ask a question
-          </Button>
-        </div>
-      )}
+        <>
+          <div className="flex flex-wrap gap-3 pt-2">
+            <Button onClick={markAsDone} disabled={markingDone}>
+              {markingDone ? 'Saving...' : 'Mark as done'}
+            </Button>
+            <a
+              href={`/course/${courseId}/${moduleIndex}/quiz`}
+              className="inline-flex items-center justify-center rounded-lg border border-border bg-background hover:bg-muted hover:text-foreground h-8 gap-1.5 px-2.5 text-sm font-medium transition-colors"
+            >
+              Take quiz
+            </a>
+            <Button variant="ghost" onClick={() => setChatOpen(true)}>
+              Ask a question
+            </Button>
+          </div>
 
-      {lessonDone && (
-        <div className="text-center text-sm text-muted-foreground">
-          <a
-            href={`/course/${courseId}/${nextModuleIndex}`}
-            className="underline inline-block"
-          >
-            Next module →
-          </a>
-        </div>
+          <div className="text-center border-t pt-6">
+            <a
+              href={`/course/${courseId}/${nextModuleIndex}`}
+              className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+            >
+              Next module <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </>
       )}
 
       <ChatSidebar

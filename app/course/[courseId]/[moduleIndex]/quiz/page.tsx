@@ -44,8 +44,8 @@ export default function QuizPage() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 space-y-4">
         <div className="animate-pulse space-y-4">
-          <div className="h-6 bg-muted rounded w-1/3" />
-          <div className="h-8 bg-muted rounded w-3/4" />
+          <div className="h-5 bg-muted rounded w-1/3" />
+          <div className="h-7 bg-muted rounded w-3/4" />
           <div className="h-24 bg-muted rounded" />
         </div>
       </div>
@@ -65,28 +65,29 @@ export default function QuizPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold">Module {moduleIndex + 1} Quiz</h1>
-        <p className="text-muted-foreground text-sm">Test your understanding of this module</p>
+      <div className="mb-8">
+        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Module {moduleIndex + 1}</p>
+        <h1 className="text-2xl font-heading font-bold tracking-tight">Quiz</h1>
+        <p className="text-sm text-muted-foreground mt-1">Test your understanding of this module</p>
       </div>
 
       <QuizCard questions={questions} onComplete={handleComplete} />
 
       {score !== null && (
         <div className="mt-8 space-y-4 text-center">
-          <Badge className="text-lg px-4 py-2" variant={score >= 60 ? 'default' : 'destructive'}>
+          <Badge className="text-base px-4 py-1.5" variant={score >= 60 ? 'default' : 'destructive'}>
             Score: {score}%
           </Badge>
           <div className="flex gap-3 justify-center">
             <a
               href={`/course/${courseId}/${moduleIndex}`}
-              className="inline-flex items-center justify-center rounded-lg border border-border bg-background h-8 px-2.5 text-sm font-medium hover:bg-muted"
+              className="inline-flex items-center justify-center rounded-lg border border-border bg-card h-8 px-3 text-sm font-medium hover:bg-muted transition-colors"
             >
               Back to lesson
             </a>
             <a
               href={`/course/${courseId}/${moduleIndex + 1}`}
-              className="inline-flex items-center justify-center rounded-lg bg-primary text-primary-foreground h-8 px-2.5 text-sm font-medium hover:bg-primary/80"
+              className="inline-flex items-center justify-center rounded-lg bg-primary text-primary-foreground h-8 px-3 text-sm font-medium hover:bg-primary/80 transition-colors"
             >
               Next module →
             </a>

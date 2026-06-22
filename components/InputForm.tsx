@@ -52,7 +52,7 @@ export function InputForm() {
           rows={3}
         />
         <div className="flex items-center gap-2">
-          <label className="cursor-pointer text-sm text-muted-foreground underline">
+          <label className="cursor-pointer text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2">
             {uploadingPdf ? 'Uploading...' : 'Or upload a PDF'}
             <input type="file" accept=".pdf" className="hidden" onChange={handlePdfUpload} disabled={uploadingPdf} />
           </label>

@@ -41,8 +41,13 @@ export function ConceptGraph({ courseId, modules, progress }: Props) {
               isLocked && 'opacity-50 cursor-not-allowed',
             )}
             onClick={e => isLocked && e.preventDefault()}
+            aria-disabled={isLocked}
           >
-            <span className="flex-shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-xs">
+            <span className={cn(
+              'flex-shrink-0 size-6 rounded-full border flex items-center justify-center text-xs',
+              isCompleted && 'border-primary/30 bg-primary/10 text-primary',
+              isActive && !isCompleted && 'border-ring',
+            )}>
               {isCompleted ? '✓' : isLocked ? '🔒' : mod.index + 1}
             </span>
             <span className="flex-1 truncate">{mod.title}</span>
@@ -50,7 +55,7 @@ export function ConceptGraph({ courseId, modules, progress }: Props) {
             {score !== null && (
               <span className={cn(
                 'text-xs font-medium',
-                score >= 60 ? 'text-green-600' : 'text-orange-600',
+                score >= 60 ? 'text-primary' : 'text-destructive',
               )}>
                 {score}%
               </span>

@@ -8,7 +8,9 @@ export default function SignInPage() {
     <div className="flex flex-1 items-center justify-center">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Learn This</CardTitle>
+          <CardTitle className="text-2xl font-heading">
+            Learn&nbsp;<span className="text-primary">This</span>
+          </CardTitle>
           <CardDescription>Sign in to start learning</CardDescription>
         </CardHeader>
         <CardContent>

@@ -38,16 +38,16 @@ export function QuizCard({ questions, onComplete }: Props) {
   if (showResults) {
     return (
       <div className="space-y-6">
-        <h2 className="text-xl font-medium">Quiz complete</h2>
+        <h2 className="text-xl font-heading font-semibold">Quiz complete</h2>
         {questions.map((q, i) => (
-          <div key={q.id} className="border rounded-lg p-4 space-y-2">
-            <p className="font-medium">{i + 1}. {q.question}</p>
+          <div key={q.id} className="bg-card border border-border rounded-xl p-5 space-y-3">
+            <p className="font-medium text-sm">{i + 1}. {q.question}</p>
             {q.type === 'mcq' && (
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 {q.options!.map(opt => (
-                  <div key={opt} className={`px-3 py-1 rounded text-sm ${
-                    opt === q.answer ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100' :
-                    opt === answers[q.id] && opt !== q.answer ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100' :
+                  <div key={opt} className={`px-3 py-1.5 rounded-lg text-sm ${
+                    opt === q.answer ? 'bg-primary/10 text-primary' :
+                    opt === answers[q.id] && opt !== q.answer ? 'bg-destructive/10 text-destructive' :
                     'text-muted-foreground'
                   }`}>{opt}</div>
                 ))}
@@ -56,7 +56,7 @@ export function QuizCard({ questions, onComplete }: Props) {
             {q.type === 'open' && (
               <p className="text-sm text-muted-foreground">Your answer: {answers[q.id] || '(no answer)'}</p>
             )}
-            <p className="text-sm border-l-2 pl-3 text-muted-foreground">{q.explanation}</p>
+            <p className="text-sm border-l-2 border-primary/30 pl-3 text-muted-foreground">{q.explanation}</p>
           </div>
         ))}
       </div>
@@ -64,13 +64,13 @@ export function QuizCard({ questions, onComplete }: Props) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="bg-card border border-border rounded-xl p-6 space-y-6">
       <div className="flex items-center justify-between">
         <Badge variant="outline">Question {current + 1} of {questions.length}</Badge>
-        <span className="text-sm text-muted-foreground">{q.type === 'mcq' ? 'Multiple choice' : 'Open answer'}</span>
+        <span className="text-xs text-muted-foreground">{q.type === 'mcq' ? 'Multiple choice' : 'Open answer'}</span>
       </div>
 
-      <p className="text-lg">{q.question}</p>
+      <p className="text-base font-heading font-medium">{q.question}</p>
 
       {q.type === 'mcq' ? (
         <div className="space-y-2">
@@ -80,8 +80,8 @@ export function QuizCard({ questions, onComplete }: Props) {
               onClick={() => handleAnswer(opt)}
               className={`w-full text-left px-4 py-3 rounded-lg border text-sm transition-colors ${
                 answers[q.id] === opt
-                  ? 'border-primary bg-primary/5'
-                  : 'hover:bg-muted'
+                  ? 'border-primary bg-primary/5 text-foreground'
+                  : 'border-border hover:bg-muted text-foreground'
               }`}
             >
               {opt}
