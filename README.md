@@ -15,7 +15,7 @@ Turn any topic into a structured course. Tell it what you want to learn, your sk
 
 ## Stack
 
-Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 and shadcn/Base UI · NextAuth v5 (Google) · Supabase Postgres · Mistral (`mistral-small-latest`, via the OpenAI SDK) · Upstash Redis
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 and shadcn/Base UI · NextAuth v5 (Google) · Supabase Postgres · Gemini 2.5 Flash by default via the OpenAI SDK (swap in Groq/Llama, OpenRouter or Mistral with three env vars) · Upstash Redis
 
 ## Run locally
 
@@ -35,7 +35,7 @@ See [`.env.example`](.env.example). All except the two Upstash keys are required
 | `NEXTAUTH_URL` | `http://localhost:3000` locally, your Vercel URL in production |
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google Cloud Console, OAuth client (below) |
 | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` | Supabase, Project Settings, API |
-| `MISTRAL_API_KEY` | console.mistral.ai, API keys |
+| `LLM_API_KEY` | Free key from aistudio.google.com/apikey (Gemini). Optional `LLM_BASE_URL` / `LLM_MODEL` switch to another OpenAI-compatible provider, e.g. Groq with Llama 3.3 70B |
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Optional. Upstash, create a Redis database, REST API |
 
 ## Deploy for free
@@ -43,7 +43,7 @@ See [`.env.example`](.env.example). All except the two Upstash keys are required
 Everything below has a free tier that is enough for a demo.
 
 1. **Supabase.** Create a project. In the SQL editor run, in order, the files in `supabase/migrations/` (`..._create_tables.sql`, `..._grant_permissions.sql`, `..._create_conversations.sql`). Optionally create a storage bucket named `course-uploads` for PDF uploads.
-2. **Mistral.** Create an API key on the free plan.
+2. **LLM.** Create a free Gemini API key at aistudio.google.com/apikey and set it as `LLM_API_KEY`. To use an open-source model instead, set `LLM_BASE_URL` and `LLM_MODEL` for Groq or OpenRouter (see `.env.example`).
 3. **Google OAuth.** In Google Cloud Console create an OAuth client (Web application) with:
    - Authorized JavaScript origin: `https://learn-this.vercel.app`
    - Authorized redirect URI: `https://learn-this.vercel.app/api/auth/callback/google`
@@ -52,7 +52,7 @@ Everything below has a free tier that is enough for a demo.
 4. **Upstash (optional).** Create a free Redis database and copy the REST URL and token. Without it, rate limits reset whenever a serverless instance restarts.
 5. **Vercel.** Import this repository, add every variable from `.env.example` for Production, and deploy. Set `NEXTAUTH_URL` to the final URL.
 
-Course generation calls the model several times per course, so the Mistral free tier's rate limits are the practical ceiling for a public demo.
+Course generation calls the model several times per course, so the free tier's rate limits are the practical ceiling for a public demo.
 
 ## Project layout
 
