@@ -1,6 +1,7 @@
 import { auth, signIn, signOut } from '@/lib/auth'
 import { InputForm } from '@/components/InputForm'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 async function AuthButton() {
   const session = await auth()
@@ -8,7 +9,8 @@ async function AuthButton() {
   if (session?.user) {
     return (
       <div className="flex items-center gap-3">
-        <span className="text-sm text-muted-foreground">{session.user.email}</span>
+        <Link href="/courses" className="text-sm font-medium text-primary hover:underline">My courses</Link>
+        <span className="text-sm text-muted-foreground hidden sm:inline">{session.user.email}</span>
         <form
           action={async () => {
             'use server'

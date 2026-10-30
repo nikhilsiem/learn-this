@@ -1,5 +1,6 @@
 import { auth } from '@/lib/auth'
 import { supabaseAdmin } from '@/lib/supabase'
+import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { CourseSidebar } from './course-sidebar'
 import { ProgressBar } from '@/components/ProgressBar'
@@ -41,6 +42,9 @@ export default async function CourseLayout({
   return (
     <div className="flex flex-1">
       <aside className="w-72 border-r hidden md:block overflow-y-auto p-4 space-y-4">
+        <Link href="/courses" className="block text-xs text-muted-foreground hover:text-foreground transition-colors">
+          ← My courses
+        </Link>
         <div className="space-y-3">
           <div>
             <h2 className="font-heading font-semibold text-base leading-snug">{course.title}</h2>
