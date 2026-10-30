@@ -22,7 +22,10 @@ export async function GET(
     .single()
 
   if (cached?.lesson_markdown) {
-    return NextResponse.json({ markdown: cached.lesson_markdown, cached: true })
+    return NextResponse.json(
+      { markdown: cached.lesson_markdown, cached: true },
+      { headers: { 'X-Cached': 'true' } },
+    )
   }
 
   const { data: course } = await supabaseAdmin

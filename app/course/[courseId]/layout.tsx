@@ -2,6 +2,8 @@ import { auth } from '@/lib/auth'
 import { supabaseAdmin } from '@/lib/supabase'
 import { notFound, redirect } from 'next/navigation'
 import { CourseSidebar } from './course-sidebar'
+import { ProgressBar } from '@/components/ProgressBar'
+import type { Progress } from '@/lib/types'
 
 export default async function CourseLayout({
   children,
@@ -29,17 +31,27 @@ export default async function CourseLayout({
     .eq('user_id', session.user.id)
     .eq('course_id', courseId)
 
+  const progressRows: Progress[] = (progress ?? []).map(p => ({
+    moduleIndex: p.module_index,
+    completed: !!p.completed,
+    quizScore: p.quiz_score ?? null,
+  }))
+  const completedCount = progressRows.filter(p => p.completed).length
+
   return (
     <div className="flex flex-1">
       <aside className="w-72 border-r hidden md:block overflow-y-auto p-4 space-y-4">
-        <div>
-          <h2 className="font-semibold text-sm truncate">{course.title}</h2>
-          <p className="text-xs text-muted-foreground truncate">{course.topic}</p>
+        <div className="space-y-3">
+          <div>
+            <h2 className="font-heading font-semibold text-base leading-snug">{course.title}</h2>
+            <p className="text-xs text-muted-foreground mt-1 truncate">{course.topic}</p>
+          </div>
+          <ProgressBar completed={completedCount} total={course.modules.length} />
         </div>
         <CourseSidebar
           courseId={courseId}
           modules={course.modules}
-          progress={progress ?? []}
+          progress={progressRows}
         />
       </aside>
       <main className="flex-1 min-w-0">
